@@ -1,0 +1,70 @@
+﻿@model Mvc.Models.cliente
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h3>Deseas Eliminar?</h3>
+    <div>
+        <h4 style="margin-left:20px">cliente</h4>
+        
+        <hr />
+        <dl class="dl-horizontal">
+            
+            <dd>
+                @Html.HiddenFor(model => model.id_cliente)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.nombre)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.nombre)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.direccion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.direccion)
+            </dd>
+    
+            <dt>
+               @Html.DisplayNameFor(model => model.departamento.descripcion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.departamento.descripcion)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Regresar", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>
