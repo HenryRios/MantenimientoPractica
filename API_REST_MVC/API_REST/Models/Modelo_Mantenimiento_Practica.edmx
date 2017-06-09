@@ -12,7 +12,8 @@
           <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="50" />
           <Property Name="direccion" Type="nvarchar" MaxLength="50" />
-          <Property Name="id_departamento" Type="int" />
+          <Property Name="id_distrito" Type="int" />
+          <Property Name="estado" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -21,14 +22,54 @@
           <Property Name="id_departamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__cliente__id_depa__0519C6AF">
-          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+        <EntityType Name="distrito">
+          <Key>
+            <PropertyRef Name="id_distrito" />
+          </Key>
+          <Property Name="id_distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_provincia" Type="int" />
+        </EntityType>
+        <EntityType Name="provincia">
+          <Key>
+            <PropertyRef Name="id_provincia" />
+          </Key>
+          <Property Name="id_provincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_departamento" Type="int" />
+        </EntityType>
+        <Association Name="FK__cliente__id_dist__1367E606">
+          <End Role="distrito" Type="Self.distrito" Multiplicity="0..1" />
           <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distrito">
+              <PropertyRef Name="id_distrito" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="id_distrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__distrito__id_pro__0EA330E9">
+          <End Role="provincia" Type="Self.provincia" Multiplicity="0..1" />
+          <End Role="distrito" Type="Self.distrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="provincia">
+              <PropertyRef Name="id_provincia" />
+            </Principal>
+            <Dependent Role="distrito">
+              <PropertyRef Name="id_provincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__provincia__id_de__09DE7BCC">
+          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+          <End Role="provincia" Type="Self.provincia" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="departamento">
               <PropertyRef Name="id_departamento" />
             </Principal>
-            <Dependent Role="cliente">
+            <Dependent Role="provincia">
               <PropertyRef Name="id_departamento" />
             </Dependent>
           </ReferentialConstraint>
@@ -36,9 +77,19 @@
         <EntityContainer Name="MantenimientoPracticaModelStoreContainer">
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="departamento" EntityType="Self.departamento" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__cliente__id_depa__0519C6AF" Association="Self.FK__cliente__id_depa__0519C6AF">
-            <End Role="departamento" EntitySet="departamento" />
+          <EntitySet Name="distrito" EntityType="Self.distrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="provincia" EntityType="Self.provincia" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__cliente__id_dist__1367E606" Association="Self.FK__cliente__id_dist__1367E606">
+            <End Role="distrito" EntitySet="distrito" />
             <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__distrito__id_pro__0EA330E9" Association="Self.FK__distrito__id_pro__0EA330E9">
+            <End Role="provincia" EntitySet="provincia" />
+            <End Role="distrito" EntitySet="distrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK__provincia__id_de__09DE7BCC" Association="Self.FK__provincia__id_de__09DE7BCC">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="provincia" EntitySet="provincia" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -53,8 +104,9 @@
           <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="id_departamento" Type="Int32" />
-          <NavigationProperty Name="departamento" Relationship="Self.FK__cliente__id_depa__0519C6AF" FromRole="cliente" ToRole="departamento" />
+          <Property Name="id_distrito" Type="Int32" />
+          <Property Name="estado" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="distrito" Relationship="Self.FK__cliente__id_dist__1367E606" FromRole="cliente" ToRole="distrito" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -62,26 +114,80 @@
           </Key>
           <Property Name="id_departamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="cliente" Relationship="Self.FK__cliente__id_depa__0519C6AF" FromRole="departamento" ToRole="cliente" />
+          <NavigationProperty Name="provincia" Relationship="Self.FK__provincia__id_de__09DE7BCC" FromRole="departamento" ToRole="provincia" />
         </EntityType>
-        <Association Name="FK__cliente__id_depa__0519C6AF">
-          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+        <EntityType Name="distrito">
+          <Key>
+            <PropertyRef Name="id_distrito" />
+          </Key>
+          <Property Name="id_distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_provincia" Type="Int32" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__cliente__id_dist__1367E606" FromRole="distrito" ToRole="cliente" />
+          <NavigationProperty Name="provincia" Relationship="Self.FK__distrito__id_pro__0EA330E9" FromRole="distrito" ToRole="provincia" />
+        </EntityType>
+        <EntityType Name="provincia">
+          <Key>
+            <PropertyRef Name="id_provincia" />
+          </Key>
+          <Property Name="id_provincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_departamento" Type="Int32" />
+          <NavigationProperty Name="departamento" Relationship="Self.FK__provincia__id_de__09DE7BCC" FromRole="provincia" ToRole="departamento" />
+          <NavigationProperty Name="distrito" Relationship="Self.FK__distrito__id_pro__0EA330E9" FromRole="provincia" ToRole="distrito" />
+        </EntityType>
+        <Association Name="FK__cliente__id_dist__1367E606">
+          <End Role="distrito" Type="Self.distrito" Multiplicity="0..1" />
           <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distrito">
+              <PropertyRef Name="id_distrito" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="id_distrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__provincia__id_de__09DE7BCC">
+          <End Role="departamento" Type="Self.departamento" Multiplicity="0..1" />
+          <End Role="provincia" Type="Self.provincia" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="departamento">
               <PropertyRef Name="id_departamento" />
             </Principal>
-            <Dependent Role="cliente">
+            <Dependent Role="provincia">
               <PropertyRef Name="id_departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__distrito__id_pro__0EA330E9">
+          <End Role="provincia" Type="Self.provincia" Multiplicity="0..1" />
+          <End Role="distrito" Type="Self.distrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="provincia">
+              <PropertyRef Name="id_provincia" />
+            </Principal>
+            <Dependent Role="distrito">
+              <PropertyRef Name="id_provincia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MantenimientoPracticaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="cliente" EntityType="Self.cliente" />
           <EntitySet Name="departamento" EntityType="Self.departamento" />
-          <AssociationSet Name="FK__cliente__id_depa__0519C6AF" Association="Self.FK__cliente__id_depa__0519C6AF">
-            <End Role="departamento" EntitySet="departamento" />
+          <EntitySet Name="distrito" EntityType="Self.distrito" />
+          <EntitySet Name="provincia" EntityType="Self.provincia" />
+          <AssociationSet Name="FK__cliente__id_dist__1367E606" Association="Self.FK__cliente__id_dist__1367E606">
+            <End Role="distrito" EntitySet="distrito" />
             <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__provincia__id_de__09DE7BCC" Association="Self.FK__provincia__id_de__09DE7BCC">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="provincia" EntitySet="provincia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__distrito__id_pro__0EA330E9" Association="Self.FK__distrito__id_pro__0EA330E9">
+            <End Role="provincia" EntitySet="provincia" />
+            <End Role="distrito" EntitySet="distrito" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -96,7 +202,8 @@
                 <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="id_departamento" ColumnName="id_departamento" />
+                <ScalarProperty Name="id_distrito" ColumnName="id_distrito" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -105,6 +212,24 @@
               <MappingFragment StoreEntitySet="departamento">
                 <ScalarProperty Name="id_departamento" ColumnName="id_departamento" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="distrito">
+            <EntityTypeMapping TypeName="MantenimientoPracticaModel.distrito">
+              <MappingFragment StoreEntitySet="distrito">
+                <ScalarProperty Name="id_distrito" ColumnName="id_distrito" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_provincia" ColumnName="id_provincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="provincia">
+            <EntityTypeMapping TypeName="MantenimientoPracticaModel.provincia">
+              <MappingFragment StoreEntitySet="provincia">
+                <ScalarProperty Name="id_provincia" ColumnName="id_provincia" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_departamento" ColumnName="id_departamento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

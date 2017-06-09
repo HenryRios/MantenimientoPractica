@@ -48,11 +48,13 @@
             </dd>
     
             <dt>
-               @Html.DisplayNameFor(model => model.departamento.descripcion)
+               <label>lugar</label>
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.departamento.descripcion)
+                @Html.DisplayFor(model => model.distrito.provincia.departamento.descripcion),
+                @Html.DisplayFor(model => model.distrito.provincia.descripcion),
+                @Html.DisplayFor(model => model.distrito.descripcion)
             </dd>
     
         </dl>

@@ -4,10 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d6f8e80e2f6d4c2c9846cc6d594fad99" Name="Diagram1">
-        <EntityTypeShape EntityType="MantenimientoPracticaModel.cliente" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MantenimientoPracticaModel.departamento" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="MantenimientoPracticaModel.FK__cliente__id_depa__0519C6AF" ManuallyRouted="false" />
+      <Diagram DiagramId="79333a4df790485caaf9d3f71876bf16" Name="Diagram1">
+        <EntityTypeShape EntityType="MantenimientoPracticaModel.cliente" Width="1.5" PointX="7.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MantenimientoPracticaModel.departamento" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MantenimientoPracticaModel.distrito" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MantenimientoPracticaModel.provincia" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="MantenimientoPracticaModel.FK__cliente__id_dist__1367E606" ManuallyRouted="false" />
+        <AssociationConnector Association="MantenimientoPracticaModel.FK__provincia__id_de__09DE7BCC" ManuallyRouted="false" />
+        <AssociationConnector Association="MantenimientoPracticaModel.FK__distrito__id_pro__0EA330E9" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -27,5 +27,7 @@ namespace API_REST.Models
     
         public virtual DbSet<cliente> cliente { get; set; }
         public virtual DbSet<departamento> departamento { get; set; }
+        public virtual DbSet<distrito> distrito { get; set; }
+        public virtual DbSet<provincia> provincia { get; set; }
     }
 }

@@ -22,16 +22,11 @@ namespace API_REST.Controllers
         [Route("Getcliente" , Name = "Getcliente")]
         public IQueryable<cliente> Getcliente()
         {
-
-            return db.cliente;
+            IQueryable<cliente> cli;
+            cli = db.cliente;
+            return cli;
         }
-        [Route("GetDepartamento", Name = "GetDepartamento")]
-        public IQueryable<departamento> GetDepartamento()
-        {
-
-            return db.departamento;
-        }
-
+      
         // GET: api/clientes/5
         [ResponseType(typeof(cliente))]
         public async Task<IHttpActionResult> Getcliente(int id)
@@ -43,6 +38,24 @@ namespace API_REST.Controllers
             }
 
             return Ok(cliente);
+        }
+
+        [Route("GetDepartamento", Name = "GetDepartamento")]
+        public IQueryable<departamento> GetDepartamento()
+        {
+
+            return db.departamento;
+        }
+        [ResponseType(typeof(provincia))]
+        [Route("GetProvincia" ,Name ="GetProvincia")]
+        public IQueryable<provincia> GetProvincia()
+        {
+            return db.provincia;
+        }
+        [Route("GetDistrito", Name ="GetDistrito")]
+        public IQueryable<distrito> GetDistrito() {
+
+            return db.distrito;
         }
 
         // PUT: api/clientes/5

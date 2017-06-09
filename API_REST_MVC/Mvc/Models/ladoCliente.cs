@@ -70,6 +70,48 @@ namespace Mvc.Models
             }
         }
 
+        public List<provincia> listarprovincia() {
+
+            try
+            {
+                HttpClient hc = new HttpClient();
+                hc.BaseAddress = new Uri(url);
+                hc.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage hrm = hc.GetAsync("GetProvincia").Result;
+
+                if (hrm.IsSuccessStatusCode)
+                    return hrm.Content.ReadAsAsync<List<provincia>>().Result;
+
+                return null;
+            }
+            catch {
+
+                return null;
+            }
+        }
+        public List<distrito> listardistrito()
+        {
+
+            try
+            {
+                HttpClient hc = new HttpClient();
+                hc.BaseAddress = new Uri(url);
+                hc.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage hrm = hc.GetAsync("GetDistrito").Result;
+
+                if (hrm.IsSuccessStatusCode)
+                    return hrm.Content.ReadAsAsync<List<distrito>>().Result;
+
+                return null;
+            }
+            catch
+            {
+
+                return null;
+            }
+        }
+
+
         public bool agregar(cliente cliente)
         {
 

@@ -14,54 +14,95 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/scripts/jquery.paginate.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <h2 style="margin-left:20px;" align="center">LISTA CLIENTES</h2>
-    <div style="margin-top:40px;">
-        <p style="margin-left:20px;">
-            @Html.ActionLink("Nuevo", "Create")
-        </p>
+
+    <p style="margin-left:20px;">
+        @Html.ActionLink("Nuevo", "Create")
+        @*<label>@ViewBag.tamaño</label>
+        <label>@ViewBag.contar</label>*@
+    </p>
+
+    <div style="margin-top:40px;" >
+       
         <table class="table">
-            <tr>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.direccion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.departamento.descripcion)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+            <thead >
                 <tr>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.direccion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.departamento.descripcion)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.id_cliente })  |
+                    <th>
+                        @Html.DisplayNameFor(model => model.nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.direccion)
+                    </th>
+                    <th>
+                        <label>Lugar</label>
+                    </th>
 
-                        @Html.ActionLink("Eiminar", "Delete", new { id = item.id_cliente })
-                    </td>
                 </tr>
-            }
+
+            </thead>
+            <tbody id="tabla">
+                @foreach (var item in Model)
+            {     
+                    <tr @*id="p" class="_current"*@ >
+                        
+                    
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.direccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.distrito.provincia.departamento.descripcion),
+                            @Html.DisplayFor(modelItem => item.distrito.provincia.descripcion),
+                            @Html.DisplayFor(modelItem => item.distrito.descripcion)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.id_cliente })  |
+
+                            @Html.ActionLink("Eiminar", "Delete", new { id = item.id_cliente })
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
         </table>
+        @*<div id="paginador">
+
+        </div>*@
     </div>
+    
+    @*<script type="text/javascript">
+
+        $(function () { 
+            $('#paginador').paginate({
+                count: 5,
+                start: 1,
+                display: 7,
+                border: true,
+                border_color:'#fff', 
+                text_color: '#fff', 
+                background_color: 'black', 
+                border_hover_color: '#ccc', 
+                text_hover_color: '#000', 
+                background_hover_color: '#fff', 
+                images: false,
+                mouse: 'press',
+                onChange: function (page) {
+                    $('._current', '#tabla').removeClass('_current').hide();
+                    $('#p' + page).addClass('_current').show();
+                }
+            });
+        });
+    
+    </script>*@
 </body>
 </html>

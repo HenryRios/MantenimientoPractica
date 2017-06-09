@@ -146,6 +146,9 @@
     <Compile Include="Models\departamento.cs">
       <DependentUpon>Modelo_Mantenimiento_Practica.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\distrito.cs">
+      <DependentUpon>Modelo_Mantenimiento_Practica.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Modelo_Mantenimiento_Practica.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -160,6 +163,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo_Mantenimiento_Practica.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\provincia.cs">
+      <DependentUpon>Modelo_Mantenimiento_Practica.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
